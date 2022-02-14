@@ -18,7 +18,7 @@
     require '../../php_files/connection.php';
     require '../../php_files/global.php';
 
-    function uploadFile($input_name, $folder) 
+    function uploadFile($input_name, $folder)
     {
         if (isset($_FILES[$input_name])) {
             $message = "";
@@ -27,13 +27,13 @@
             $file_info_arr = fileFilter($target_file);
             $target_file = $file_info_arr['target_file'];
             $uploadOk = 1;
-            
+
             // Check if File exist
             if (file_exists($target_file)) {
                 $message .= "Sorry, file already exists. ";
                 $uploadOk = 0;
             }
-    
+
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
                 $message .= "Sorry, your file was not uploaded. ";
@@ -52,7 +52,7 @@
 
             return $file_info_arr['file_name'];
         }
-            return '';
+        return '';
     }
 
     function br2nl($input)
@@ -118,6 +118,12 @@
                                     <a href="../../pages/products/index.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../logout.php" class="nav-link">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <p>Đăng xuất</p>
                                     </a>
                                 </li>
                             </ul>
@@ -248,21 +254,21 @@
                                 if (!($_FILES['srs_file']['size'] == 0)) {
                                     unlink($root_upload_folder_in_pages . "doc_files/$temp_srs");
                                     $srs_file = uploadFile('srs_file', 'doc_files');
-                                }                              
+                                }
                                 $feature_sum = nl2br($_POST['feature_sum']);
                                 $category_id = $_POST['category_id'];
 
                                 $query = "update products set
                                         name='$name', price=$price, feature_sum='$feature_sum', category_id=$category_id";
-                                if($image != null){
+                                if ($image != null) {
                                     $query .= ", image='$image'";
                                 }
-                                if($srs_file != null){
+                                if ($srs_file != null) {
                                     $query .= ", srs_file='$srs_file'";
                                 }
                                 $query .= " where id = $product_id";
-                                
-                                
+
+
                                 $stmt = $conn->prepare($query);
                                 if ($stmt->execute()) {
                                     $conn = null;

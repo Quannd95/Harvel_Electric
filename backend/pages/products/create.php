@@ -27,13 +27,13 @@
             $file_info_arr = fileFilter($target_file);
             $target_file = $file_info_arr['target_file'];
             $uploadOk = 1;
-            
+
             // Check if File exist
             if (file_exists($target_file)) {
                 $message .= "Sorry, file already exists. ";
                 $uploadOk = 0;
             }
-    
+
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
                 $message .= "Sorry, your file was not uploaded. ";
@@ -52,8 +52,8 @@
 
             return $file_info_arr['file_name'];
         }
-            return '';
-    }   
+        return '';
+    }
     ?>
 </head>
 
@@ -113,6 +113,12 @@
                                     <a href="../../pages/products/index.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../logout.php" class="nav-link">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <p>Đăng xuất</p>
                                     </a>
                                 </li>
                             </ul>
@@ -216,7 +222,7 @@
 
                                 $name = $_POST['product_name'];
                                 $price = $_POST['price'];
-                                $image = uploadFile('image', 'images') ;
+                                $image = uploadFile('image', 'images');
                                 $srs_file = uploadFile('srs_file', 'doc_files');
                                 $feature_sum = nl2br($_POST['feature_sum']);
                                 $category_id = $_POST['category_id'];
@@ -286,7 +292,6 @@
 
             document.getElementsByClassName('select2-selection select2-selection--single')[0].style.height = "40px";
         });
-  
     </script>
 </body>
 

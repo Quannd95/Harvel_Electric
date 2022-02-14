@@ -81,6 +81,12 @@
                     <p>Products</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../../logout.php" class="nav-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>Đăng xuất</p>
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>

@@ -1,5 +1,5 @@
 <?php 
-define("host", "localhost:3306");
+define("host", "localhost:3310");
 define("user", "root");
 define("password","");
 define("database","harvel_electric");

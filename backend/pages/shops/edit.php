@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -71,6 +72,12 @@
                                     <a href="../../pages/products/index.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../logout.php" class="nav-link">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <p>Đăng xuất</p>
                                     </a>
                                 </li>
                             </ul>
@@ -149,7 +156,7 @@
                             </form>
                             <?php
                             if (isset($_POST['submit'])) {
-                                $conn = connectToDB(); 
+                                $conn = connectToDB();
 
                                 $name = $_POST['shop_name'];
                                 $address = $_POST['address'];
@@ -206,4 +213,5 @@
         });
     </script>
 </body>
+
 </html>

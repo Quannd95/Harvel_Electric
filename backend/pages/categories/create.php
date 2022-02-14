@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,7 +14,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    
+
     <?php
     require '../../php_files/connection.php';
     ?>
@@ -75,6 +76,12 @@
                                     <a href="../../pages/products/index.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../../logout.php" class="nav-link">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <p>Đăng xuất</p>
                                     </a>
                                 </li>
                             </ul>
@@ -150,7 +157,7 @@
                             </form>
                             <?php
                             if (isset($_POST['submit'])) {
-                                $conn = connectToDB(); 
+                                $conn = connectToDB();
 
                                 $name = $_POST['category_name'];
                                 $description = $_POST['description'];
@@ -218,4 +225,5 @@
         });
     </script>
 </body>
+
 </html>
