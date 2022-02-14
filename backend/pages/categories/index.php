@@ -102,6 +102,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Danh sách các danh mục</h3>
+                  <a href="create.php" class="btn btn-success float-right" style="float: right;">+ Thêm danh mục mới</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -133,11 +134,13 @@
                           <td><?php echo $row["description"] ?></td>
                           <td><?php echo is_null($row["parent_name"]) ? 'Không' : $row["parent_name"] ?></td>
                           <td>
-                            <a class="badge badge-warning" style="margin: 2px;">Sửa</a>
-                            <a class="badge badge-danger" style="margin: 2px;">Xóa</a>
+                            <a href='edit.php?<?php echo 'category_id=' . $row['id'] ?>' class="badge badge-warning" style="margin: 2px;">Sửa</a>
+                            <a href='delete.php?<?php echo 'category_id=' . $row['id'] ?>' class="badge badge-danger" style="margin: 2px;" onclick="check(event)">Xóa</a>
                           </td>
                         </tr>
-                      <?php } ?>
+                      <?php }
+                      $conn = null;
+                      ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -211,6 +214,15 @@
         "responsive": true,
       });
     });
+
+    function check(e) {
+      let text = "Bạn có chắc muốn xóa?";
+      if (confirm(text) == true) {
+        return true;
+      } else {
+        e.preventDefault();
+      }
+    }
   </script>
 </body>
 

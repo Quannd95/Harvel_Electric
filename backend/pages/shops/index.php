@@ -90,6 +90,7 @@
       <!-- /.sidebar -->
     </aside>
 
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Main content -->
@@ -101,6 +102,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Danh sách các shop</h3>
+                  <a href="create.php" class="btn btn-success float-right" style="float: right;">+ Thêm shop mới</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -125,20 +127,22 @@
 
                       $order = 0;
                       while ($row = $stmt->fetch()) {
-                  
+
                       ?>
                         <tr>
                           <td><?php echo ++$order ?></td>
-                          <td><a href="list_product.php?<?php echo 'shop_id=' . $row['id'] . '&shop_name=' . $row['name'] ?>"><?php echo $row['name'] ?></a></td>
+                          <td><a href="list_products/index.php?<?php echo 'shop_id=' . $row['id'] . '&shop_name=' . $row['name'] ?>"><?php echo $row['name'] ?></a></td>
                           <td><?php echo $row['address'] ?></td>
                           <td><?php echo $row['owner'] ?></td>
                           <td><?php echo $row['email'] ?></td>
                           <td>
-                            <a class="badge badge-warning" style="margin: 2px;">Sửa</a>
-                            <a class="badge badge-danger" style="margin: 2px;">Xóa</a>
+                            <a href="edit.php?<?php echo 'shop_id=' . $row['id'] ?>" class="badge badge-warning" style="margin: 2px;">Sửa</a>
+                            <a href="delete.php?<?php echo 'shop_id=' . $row['id'] ?>" class="badge badge-danger" style="margin: 2px;" onclick="check(event)">Xóa</a>
                           </td>
                         </tr>
-                      <?php } ?>
+                      <?php }
+                      $conn = null;
+                      ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -212,6 +216,15 @@
         "responsive": true,
       });
     });
+
+    function check(e) {
+      let text = "Bạn có chắc muốn xóa?";
+      if (confirm(text) == true) {
+        return true;
+      } else {
+        e.preventDefault();
+      }
+    }
   </script>
 </body>
 

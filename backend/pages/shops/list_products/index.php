@@ -8,16 +8,16 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 
   <?php
-  require '../../php_files/connection.php';
+  require '../../../php_files/connection.php';
   ?>
 </head>
 
@@ -39,8 +39,8 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="../../index.php" class="brand-link">
-        <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <a href="../../../index.php" class="brand-link">
+        <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Harvel Electric</span>
       </a>
 
@@ -49,7 +49,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="../../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="d-block">Admin</a>
@@ -64,19 +64,19 @@
             <li class="nav-item">
               <ul class="nav nav-treeview" style="display: block;">
                 <li class="nav-item">
-                  <a href="../../pages/shops/index.php" class="nav-link">
+                  <a href="../../../pages/shops/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Shops</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../../pages/categories/index.php" class="nav-link">
+                  <a href="../../../pages/categories/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Categories</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../../pages/products/index.php" class="nav-link">
+                  <a href="../../../pages/products/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Products</p>
                   </a>
@@ -98,12 +98,13 @@
           <div class="row">
             <div class="col-12">
               <!-- /.card -->
-                <?php 
-                    $shop_name = $_GET['shop_name'];
-                ?>
+              <?php
+              $shop_name = $_GET['shop_name'];
+              ?>
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Danh sách các sản phẩm hiện có trong cửa hàng <?php echo $shop_name ?></h3>
+                  <button type="button" class="btn btn-success float-right" style="float: right;">+ Thêm sản phẩm</button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -122,7 +123,7 @@
                     </thead>
                     <tbody>
                       <?php
-                      $root = '../../uploads';
+                      $root = '../../../uploads';
                       $conn = connectToDB();
                       $query = "Select products.*, categories.name as category_name from products
                     inner join categories on categories.id = products.category_id inner join product_shop
@@ -133,7 +134,6 @@
 
                       $order = 0;
                       while ($row = $stmt->fetch()) {
-
                       ?>
                         <tr>
                           <td><?php echo ++$order ?></td>
@@ -147,7 +147,8 @@
                             <a class="badge badge-danger" style="margin: 2px;">Xóa</a>
                           </td>
                         </tr>
-                      <?php } ?>
+                      <?php }
+                      $conn = null; ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -186,26 +187,26 @@
   <!-- ./wrapper -->
 
   <!-- jQuery -->
-  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <script src="../../../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- DataTables  & Plugins -->
-  <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-  <script src="../../plugins/jszip/jszip.min.js"></script>
-  <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-  <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="../../../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../../plugins/jszip/jszip.min.js"></script>
+  <script src="../../../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../../../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="../../dist/js/adminlte.min.js"></script>
+  <script src="../../../dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="../../dist/js/demo.js"></script>
+  <script src="../../../dist/js/demo.js"></script>
   <!-- Page specific script -->
   <script>
     $(function() {

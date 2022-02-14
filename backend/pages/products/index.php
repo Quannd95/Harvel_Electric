@@ -102,6 +102,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Danh sách các sản phẩm</h3>
+                  <a href="create.php" class="btn btn-success float-right" style="float: right;">+ Thêm sản phẩm mới</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -123,7 +124,7 @@
                       $root = '../../uploads';
                       $conn = connectToDB();
                       $query = "Select products.*, categories.name as category_name from products
-                    inner join categories on categories.id = products.category_id";
+                              left join categories on categories.id = products.category_id";
                       $stmt = $conn->prepare($query);
                       $stmt->setFetchMode(PDO::FETCH_ASSOC);
                       $stmt->execute();
@@ -139,13 +140,15 @@
                           <td><img src='<?php echo $root . '/images/' . $row['image'] ?>' width="50" height="50" /></td>
                           <td><?php echo $row['feature_sum'] ?></td>
                           <td><a href="<?php echo $root . '/doc_files/' . $row['srs_file'] ?>"><?php echo $row['srs_file'] ?></a></td>
-                          <td><?php echo $row['category_name'] ?></td>
+                          <td><?php echo $row['category_name'] ?? "Không" ?></td>
                           <td>
-                            <a class="badge badge-warning" style="margin: 2px;">Sửa</a>
-                            <a class="badge badge-danger" style="margin: 2px;">Xóa</a>
+                            <a href='edit.php?<?php echo 'product_id=' . $row['id'] ?>' class="badge badge-warning" style="margin: 2px;">Sửa</a>
+                            <a href='delete.php?<?php echo 'product_id=' . $row['id'] ?>' class="badge badge-danger" style="margin: 2px;" onclick="check(event)">Xóa</a>
                           </td>
                         </tr>
-                      <?php } ?>
+                      <?php }
+                      $conn = null;
+                      ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -223,6 +226,15 @@
         "responsive": true,
       });
     });
+
+    function check(e) {
+      let text = "Bạn có chắc muốn xóa?";
+      if (confirm(text) == true) {
+        return true;
+      } else {
+        e.preventDefault();
+      }
+    }
   </script>
 </body>
 
