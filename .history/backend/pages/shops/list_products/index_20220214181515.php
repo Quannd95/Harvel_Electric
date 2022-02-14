@@ -15,9 +15,6 @@
   <link rel="stylesheet" href="../../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
   <?php
   require '../../../php_files/connection.php';
@@ -107,26 +104,26 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Danh sách các sản phẩm hiện có trong cửa hàng <?php echo $shop_name ?></h3>
-                  <form class="form-group" method="post" action="add_product.php?shop_id=<?php echo $_GET['shop_id'] ?>">
-                    <select class="form-control select2" style="width: 100%;" id='parent_id' name='product'>
-                      <option value="0">Không</option>
-                      <?php
-                      $conn = connectToDB();
-                      $query = "Select * from products where not exists (select product_id from product_shop WHERE products.id = product_shop.product_id AND product_shop.shop_id='" . $_GET['shop_id'] . "' )";
-                      $stmt = $conn->prepare($query);
-                      $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                      $stmt->execute();
+                  <div class="form-group">
+                                        <label>Danh mục cha:</label>
+                                        <select class="form-control select2" style="width: 100%;" id='parent_id' name='parent_id'>
+                                            <option value="0">Không</option>
+                                            <?php
+                                            $conn = connectToDB();
+                                            $query = "Select * from categories";
+                                            $stmt = $conn->prepare($query);
+                                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                                            $stmt->execute();
 
-                      while ($row = $stmt->fetch()) {
-                      ?>
-                        <option value="<?php echo $row['id'] ?>" title="<?php echo $row['price'] ?>"><?php echo $row['name'] ?></option>
-                      <?php
-                      }
-                      $conn = null; ?>
-                    </select>
-                    <!-- </form> -->
-                    <input type="submit" class="btn btn-success float-right" style="margin-top: 10px;" value="+ Thêm sản phẩm">
-                  </form>
+                                            while ($row = $stmt->fetch()) {
+                                            ?>
+                                                <option value="<?php echo $row['id'] ?>" title="<?php echo $row['description'] ?>"><?php echo $row['name'] ?></option>
+                                            <?php
+                                            }
+                                            $conn = null; ?>
+                                        </select>
+                                    </div>
+                  <button type="button" class="btn btn-success float-right">+ Thêm sản phẩm</button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -166,7 +163,7 @@
                           <td><a href="<?php echo $root . '/doc_files/' . $row['srs_file'] ?>"><?php echo $row['srs_file'] ?></a></td>
                           <td><?php echo $row['category_name'] ?></td>
                           <td>
-                            <a class="badge badge-danger" style="margin: 2px;" href="delete_product.php?product_id=<?php echo $row['id'] ?>&shop_id=<?php echo $_GET['shop_id'] ?>">Xóa</a>
+                            <a class="badge badge-danger" style="margin: 2px;">Xóa</a>
                           </td>
                         </tr>
                       <?php }
@@ -229,8 +226,6 @@
   <script src="../../../dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../../../dist/js/demo.js"></script>
-  <!-- Select2 -->
-  <script src="../../plugins/select2/js/select2.full.min.js"></script>
   <!-- Page specific script -->
   <script>
     $(function() {
@@ -249,18 +244,6 @@
         "autoWidth": false,
         "responsive": true,
       });
-    });
-
-    $(function() {
-      //Initialize Select2 Elements
-      $('.select2').select2()
-
-      //Initialize Select2 Elements
-      $('.select2bs4').select2({
-        theme: 'bootstrap4'
-      })
-
-      document.getElementsByClassName('select2-selection select2-selection--single')[0].style.height = "40px";
     });
   </script>
 </body>

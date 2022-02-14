@@ -166,7 +166,7 @@
                           <td><a href="<?php echo $root . '/doc_files/' . $row['srs_file'] ?>"><?php echo $row['srs_file'] ?></a></td>
                           <td><?php echo $row['category_name'] ?></td>
                           <td>
-                            <a class="badge badge-danger" style="margin: 2px;" href="delete_product.php?product_id=<?php echo $row['id'] ?>&shop_id=<?php echo $_GET['shop_id'] ?>">Xóa</a>
+                            <a class="badge badge-danger" style="margin: 2px;" href="delete_product.php?product_id=<?php echo $row['id'] ?>">Xóa</a>
                           </td>
                         </tr>
                       <?php }

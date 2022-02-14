@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <h1><b>Harvel</b></h1>
+      <h1><b>Harvel Electric</b></h1>
     </div>
     <!-- /.login-logo -->
     <div class="card">
