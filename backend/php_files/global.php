@@ -7,8 +7,8 @@ $root_upload_folder = "uploads/";
 function checkIfLogin()
 {
     session_start();
-    if (!isset($_SESSION['isLogin']) && $_SESSION['isLogin']) {
-        header('Location: ' . './login.php');
+    if (!(isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true)) {
+        header('Location: ' . 'login.php');
     }
 }
 
@@ -20,7 +20,7 @@ function fileFilter($target_file)
         $folder = str_replace(basename($target_file), "", $target_file);
         $range = 0;
 
-        $final_target_file = null;
+        $final_target_file = '';
         do {
             $range += 1;
             $final_target_file = $folder . $target_name . rand($range, $range * 10) . "." . $imageFileType;
