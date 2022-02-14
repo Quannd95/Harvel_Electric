@@ -104,16 +104,19 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
+          <?php
+          $shop_name = $_GET['shop_name'];
+          ?>
+          <div class="row mb-2 mt-2">
+            <h3>Danh sách các sản phẩm hiện có trong cửa hàng <?php echo $shop_name ?></h3>
+          </div>
           <div class="row">
             <div class="col-12">
-              <?php
-              $shop_name = $_GET['shop_name'];
-              ?>
+
               <!-- /.card -->
               <div class="card">
                 <div class="card-header">
-                <h3 class="card-title">Danh sách các sản phẩm hiện có trong cửa hàng <?php echo $shop_name ?></h3>
-                  <div style="margin: 3% 0 3% 0;">
+                  <div>
                     <form class="form-group" method="post" action="add_product.php?shop_id=<?php echo $_GET['shop_id'] . '&shop_name=' . $shop_name ?>">
                       <select class="form-control select2" style="width: 100%;" id='parent_id' name='product'>
                         <option value="0">Không</option>
