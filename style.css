@@ -923,5 +923,20 @@ i.youtube {
             transform: translateX(0)
         }
     }
+    
+    /* map */
+    .body__map, .body__address {
+        margin: 0 1rem;
+    }
+
+    .body__map iframe {
+        height: 40rem;
+        
+    }
+
+    /* login, register*/
+    .container__login, .container__register {
+        padding: 0rem 1rem;
+    }
 
 }
