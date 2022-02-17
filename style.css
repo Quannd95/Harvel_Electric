@@ -407,6 +407,37 @@ i.youtube {
     margin-top: 2rem;
 }
 
+.body__map {
+    padding: 2rem 0;
+}
+
+.body__map iframe {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #333333;
+}
+
+.body__address {
+    padding: 2rem 0;
+}
+
+.body__address h1 {
+    font-size: 4rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.body__address h3 {
+    font-size: 2rem;
+    margin: 2rem 0.8rem 1rem 0.8rem;
+    line-height: 2rem;
+}
+
+.body__address img {
+    width: 100%;
+    height: 60%;
+}
+
 .body__comment--input {
     height: 6rem;
     border-radius: 0.6rem;
@@ -922,6 +953,16 @@ i.youtube {
             opacity: 1;
             transform: translateX(0)
         }
+    }
+    
+    /* map */
+    .body__map, .body__address {
+        margin: 0 1rem;
+    }
+
+    .body__map iframe {
+        height: 40rem;
+        
     }
 
 }
