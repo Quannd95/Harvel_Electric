@@ -95,6 +95,7 @@ function changeColorIcon() {
     if(index > icons.length) // return
         index= 1
     icons[index - 1].style.background= 'var(--primary-color)'
+    // dung vong for cho het icon mau trang roi sau moi 3s cho mau den
 }
 let index= 0
 changeColorIcon()
@@ -103,9 +104,12 @@ changeColorIcon()
 function showBtn() {
 
     const input= $('.body__comment--input')
+    
     input.addEventListener('click', e => {
         $('.body__comment--btn').classList.add('showBtn')
     })
+
+    btn()
 }
 
 // list comment else user
@@ -165,14 +169,17 @@ function push() {
     const input= $('.body__comment--input')
 
     input.addEventListener('keyup', e => {
-        if(e.keyCode === 13) {
+        value= e.target.value.trim('')
+        // when enter on input
+        if(e.keyCode === 13 && !datas2.includes(value) && value !== '') {
 
-            value= e.target.value.trim('')
     
             datas2.unshift(value)
             commentUser()
             input.value = ''
         }
+
+        // when click btn on input
     })
 }
 push()
@@ -185,12 +192,15 @@ function btn() {
     btn.addEventListener('click', e => {
 
         value= $('.body__comment--input').value.trim('')
-        datas2.push(value)
-        commentUser()
-        $('.body__comment--input').value = ''
+
+        if(!datas2.includes(value) && value !== '') {
+
+            datas2.unshift(value)
+            commentUser()
+            $('.body__comment--input').value = ''
+        }
     })
 }
-btn()
 
     // render
 function commentUser() {
@@ -228,7 +238,13 @@ function commentUser() {
         `
     }
 
-    
+    const nameRegister= document.querySelector('span.user-Name')
+    const name= document.querySelector('#register__name')
+
+    if(name.value !== '') {
+
+        nameRegister.innerText= name.value
+    }
 }
 
 // delete comment user when click track
@@ -242,21 +258,303 @@ function deleteCommentUser(id) {
 // edit comment user when click pencil
 function getValueComment(id) {
 
+    let value
     const content= $('.user-content')
     
     content.style.border= '1px solid #666'
+    content.style.padding= '1rem 2rem'
     content.setAttribute('contentEditable', 'true')
     content.setAttribute('autofocus', 'true')
-    console.log([content])      
     
     content.addEventListener('keyup', e => {
+        value= content.innerText.trim('')
 
-        if(e.keyCode === 13) {
-            datas2[id] = content.innerText
+        if(e.keyCode === 13 && !datas2.includes(value) ) {
+            datas2[id] = value
             commentUser()
+        }
+        
+    })
+}
+
+// Login
+;(function() {
+    const name= $('#name')
+    const password= $('#password')
+    const form= $('#login__btn')
+    const showLogin= $('.wrapper__register')
+    const hideLogins= $$('.container__login, .login > i')
+    const container= $('.container__login')
+    const user= $('.info__user')
+
+    // show form login
+    function showFormLogin() {
+        
+        showLogin.addEventListener('click', handleFormLogin)
+    }
+    showFormLogin()
+        // handleFormLogin
+    function handleFormLogin() {
+
+        container.classList.add('show')
+    }
+
+    // hide form login
+    function hideFormLogin() {
+
+        hideLogins.forEach(hideLogin => {
+            hideLogin.addEventListener('click', handleHideFormLogin)
+        })
+    }
+    hideFormLogin()
+        // handleHideFormLogin
+    function handleHideFormLogin() {
+        
+        container.classList.remove('show')
+    }
+
+    // stop propagation
+    $('.login').addEventListener('click',e => {
+        e.stopPropagation()
+    })
+
+    
+    // show error
+    function showError(input, message) {
+        
+        input.classList.add('error')
+        const wrapInput= input.parentElement
+        const Error= wrapInput.querySelector('small')
+        Error.innerText= message
+    }
+
+    // show success
+    function showSuccess(input) {
+        input.classList.add('success')
+        input.classList.remove('error')
+
+        const wrapInput= input.parentElement
+        const Error= wrapInput.querySelector('small')
+        Error.innerText= ''
+        return true
+    }
+
+    // CLICK BUTTON: 6 < UserName < 20  ký tự
+    function checkLengthUser(input, min, max) {
+        let ischeckLengthUser= true
+
+        input.value= input.value.trim()
+
+        
+        if( !(input.value === 'quan.tm.735@aptechlearning.edu.vn')) {
+            showError(input, `UserName do not match`)
+        } else {
+            ischeckLengthUser= false
+        }
+        // showSuccess(input)
+        return ischeckLengthUser 
+    }
+
+    // Check Password
+    function checkPassword(input) {
+        let ischeckPassword = true
+
+        input.value= input.value.trim()
+        if( !(input.value === 'Trinhminhquan123')) {
+
+            showError(input, `Password do not match`)
+        } else {
+            ischeckPassword = false
+        }
+        return ischeckPassword
+    }
+
+    // CLICK BUTTON:input nào còn trống sẽ showError()
+    function checkEmptyError(inputs) {
+        let isEmptyError= true
+
+        inputs.forEach(input => {
+            
+            input.value= input.value.trim()
+            if(!input.value) {
+                isEmptyError= false
+                showError(input, 'khong duoc de trong')
+            } else {
+                if(showSuccess(input)) {
+
+                    let isCheckLengthUser= checkLengthUser(name, 6, 20)
+                    let isCheckPassword= checkPassword(password)
+
+                    if(isCheckPassword || isCheckLengthUser) {
+                        console.log('khong lam gi ca')
+                    } else {
+                        handleHideFormLogin()
+                        user.classList.add('show')
+                    }
+                }
+            }
+        })
+        return isEmptyError
+    }
+
+    // click button
+    form.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        checkEmptyError([name, password])
+    })
+})()
+
+// Register
+;(function() {
+const name= document.getElementById('register__name')
+const email= document.getElementById('register__email')
+const password1= document.getElementById('register__password1')
+const confirmPassword= document.getElementById('register__password2')
+const form= document.querySelector('#register')
+
+// 
+const showLogin= $('.wrapper__login')
+const hideLogins= $$('.container__register, .register > i')
+const container= $('.container__register')
+const user= $('.info__user')
+
+
+
+// show error
+function showError(input, message) {
+    input.classList.add('error')
+    const wrapInput= input.parentElement
+    const Error= wrapInput.querySelector('small')
+    Error.innerText= message
+}
+
+// show success
+function showSuccess(input) {
+    input.classList.add('success')
+    input.classList.remove('error')
+    
+    const wrapInput= input.parentElement
+    const Error= wrapInput.querySelector('small')
+    Error.innerText= ''
+    return true
+
+}
+
+// show form login
+function showFormLogin() {
+        
+    showLogin.addEventListener('click', handleFormLogin)
+}
+showFormLogin()
+    // handleFormLogin
+function handleFormLogin() {
+
+    container.classList.add('show')
+}
+
+// hide form login
+function hideFormLogin() {
+
+    hideLogins.forEach(hideLogin => {
+        hideLogin.addEventListener('click', handleHideFormLogin)
+    })
+}
+hideFormLogin()
+    // handleHideFormLogin
+function handleHideFormLogin() {
+    
+    container.classList.remove('show')
+}
+
+// stop propagation
+$('.register').addEventListener('click',e => {
+    e.stopPropagation()
+})
+
+
+// CLICK BUTTON:input nào còn trống sẽ showError()
+function checkEmptyError(inputs) {
+
+    inputs.forEach(input => {
+
+        input.value= input.value.trim()
+
+        if(!input.value) {
+            showError(input, 'khong duoc de trong')
+        } else {
+            if(showSuccess(input)) {
+                let isCheckEmail= checkEmail(email)
+                let isCheckLengthUser= checkLengthUser(name, 6, 20)
+                let isMathPassword= mathPassword(password1, confirmPassword)
+
+                if(isCheckEmail || isCheckLengthUser || isMathPassword) {
+                    console.log('khong lam gi ca')
+                } else {
+                   
+                    handleHideFormLogin()
+                    user.classList.add('show')
+                    user.innerText= name.value
+                    console.log(user.innerText)
+                }
+            }
         }
     })
 }
+// CLICK BUTTON: email ko hợp lệ sẽ showError()
+function checkEmail(input) {
+    const regexEmail=
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    input.value= input.value.trim()
+
+    let isEmail= !regexEmail.test(input.value)
+    if(regexEmail.test(input.value)) {
+        showSuccess(input)
+    } else {
+        showError(input, 'email không hợp lệ ')
+    }
+    return isEmail
+}
+
+// CLICK BUTTON: 6 < UserName < 20  ký tự
+function checkLengthUser(input, min, max) {
+    
+    input.value= input.value.trim()
+    if(input.value.length < min) {
+        showError(input, `UserName phải lớn hơn ${min} ký tự`)
+        return true 
+    }
+    if(input.value.length > max) {
+        showError(input, `UserName phải nhỏ hơn ${max} ký tự`)
+        return true 
+    }
+    // showSuccess(input)
+    return false 
+}
+
+// CLICK BUTTON: match password
+function mathPassword(input1, input2) {
+    if(input1.value !== input2.value) {
+        showError(input2, 'Password do not match')
+        return true
+    } else {
+
+        showSuccess(input2)
+        return false
+    }
+}
+
+
+// click button
+form.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    checkEmptyError([name, email, password1, confirmPassword])  
+})
+
+})()
+
+
 // Gallery
 
     // close Gallery 
@@ -353,4 +651,6 @@ function increaseDecrease() {
         parseFloat($('.info__price--number').innerText) * number
     }
 }
+
+// Name uset
 
